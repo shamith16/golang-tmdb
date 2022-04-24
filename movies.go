@@ -9,145 +9,86 @@ import (
 
 // MovieDetails type is a struct for movie details JSON response.
 type MovieDetails struct {
-	Adult               bool   `json:"adult"`
-	BackdropPath        string `json:"backdrop_path"`
-	BelongsToCollection struct {
-		ID           int64  `json:"id"`
-		Name         string `json:"name"`
-		PosterPath   string `json:"poster_path"`
-		BackdropPath string `json:"backdrop_path"`
-	} `json:"belongs_to_collection"`
-	Budget int64 `json:"budget"`
-	Genres []struct {
-		ID   int64  `json:"id"`
-		Name string `json:"name"`
-	} `json:"genres"`
-	Homepage            string  `json:"homepage"`
-	ID                  int64   `json:"id"`
-	IMDbID              string  `json:"imdb_id"`
-	OriginalLanguage    string  `json:"original_language"`
-	OriginalTitle       string  `json:"original_title"`
-	Overview            string  `json:"overview"`
-	Popularity          float32 `json:"popularity"`
-	PosterPath          string  `json:"poster_path"`
-	ProductionCompanies []struct {
-		Name          string `json:"name"`
-		ID            int64  `json:"id"`
-		LogoPath      string `json:"logo_path"`
-		OriginCountry string `json:"origin_country"`
-	} `json:"production_companies"`
-	ProductionCountries []struct {
-		Iso3166_1 string `json:"iso_3166_1"`
-		Name      string `json:"name"`
-	} `json:"production_countries"`
-	ReleaseDate     string `json:"release_date"`
-	Revenue         int64  `json:"revenue"`
-	Runtime         int    `json:"runtime"`
-	SpokenLanguages []struct {
-		Iso639_1 string `json:"iso_639_1"`
-		Name     string `json:"name"`
-	} `json:"spoken_languages"`
-	Status      string  `json:"status"`
-	Tagline     string  `json:"tagline"`
-	Title       string  `json:"title"`
-	Video       bool    `json:"video"`
-	VoteAverage float32 `json:"vote_average"`
-	VoteCount   int64   `json:"vote_count"`
-	*MovieAlternativeTitlesAppend
-	*MovieChangesAppend
-	*MovieCreditsAppend
-	*MovieExternalIDsAppend
-	*MovieImagesAppend
-	*MovieKeywordsAppend
-	*MovieReleaseDatesAppend
-	*MovieVideosAppend
-	*MovieTranslationsAppend
-	*MovieRecommendationsAppend
-	*MovieSimilarAppend
-	*MovieReviewsAppend
-	*MovieListsAppend
-	*MovieWatchProvidersAppend
+	Adult               bool                   `json:"adult"`
+	BackdropPath        string                 `json:"backdrop_path"`
+	BelongsToCollection BelongsToCollection    `json:"belongs_to_collection"`
+	Budget              int64                  `json:"budget"`
+	Genres              []Genre                `json:"genres"`
+	Homepage            string                 `json:"homepage"`
+	ID                  int64                  `json:"id"`
+	IMDbID              string                 `json:"imdb_id"`
+	OriginalLanguage    string                 `json:"original_language"`
+	OriginalTitle       string                 `json:"original_title"`
+	Overview            string                 `json:"overview"`
+	Popularity          float32                `json:"popularity"`
+	PosterPath          string                 `json:"poster_path"`
+	ProductionCompanies []ProductionCompany    `json:"production_companies"`
+	ProductionCountries []ProductionCountry    `json:"production_countries"`
+	ReleaseDate         string                 `json:"release_date"`
+	Revenue             int64                  `json:"revenue"`
+	Runtime             int                    `json:"runtime"`
+	SpokenLanguages     []SpokenLanguage       `json:"spoken_languages"`
+	Status              string                 `json:"status"`
+	Tagline             string                 `json:"tagline"`
+	Title               string                 `json:"title"`
+	Video               bool                   `json:"video"`
+	VoteAverage         float32                `json:"vote_average"`
+	VoteCount           int64                  `json:"vote_count"`
+	AlternativeTitles   MovieAlternativeTitles `json:"alternative_titles,omitempty"`
+	Changes             MovieChanges           `json:"changes,omitempty"`
+	Credits             Credits                `json:"credits,omitempty"`
+	MovieExternalIDs    MovieExternalIDs       `json:"external_ids,omitempty"`
+	Images              MovieImages            `json:"images,omitempty"`
+	Keywords            MovieKeywords          `json:"keywords,omitempty"`
+	ReleaseDates        MovieReleaseDates      `json:"release_dates,omitempty"`
+	Videos              Videos                 `json:"videos,omitempty"`
+	Translations        MovieTranslations      `json:"translations,omitempty"`
+	Recommendations     MovieRecommendations   `json:"recommendations,omitempty"`
+	Similar             MovieSimilar           `json:"similar,omitempty"`
+	Reviews             Reviews                `json:"reviews,omitempty"`
+	Lists               MovieLists             `json:"lists,omitempty"`
+	WatchProviders      MovieWatchProviders    `json:"watch_providers,omitempty"`
 }
 
-// MovieAlternativeTitlesAppend type is a struct for alternative
-// titles in append to response.
-type MovieAlternativeTitlesAppend struct {
-	AlternativeTitles *MovieAlternativeTitles `json:"alternative_titles,omitempty"`
+type BelongsToCollection struct {
+	ID           int64  `json:"id"`
+	Name         string `json:"name"`
+	PosterPath   string `json:"poster_path"`
+	BackdropPath string `json:"backdrop_path"`
 }
 
-// MovieChangesAppend type is a struct for changes in append to response.
-type MovieChangesAppend struct {
-	Changes *MovieChanges `json:"changes,omitempty"`
+type Genre struct {
+	ID   int64  `json:"id"`
+	Name string `json:"name"`
 }
 
-// MovieCreditsAppend type is a struct for credits in append to response.
-type MovieCreditsAppend struct {
-	Credits struct {
-		*MovieCredits
-	} `json:"credits,omitempty"`
+type ProductionCompany struct {
+	Name          string `json:"name"`
+	ID            int64  `json:"id"`
+	LogoPath      string `json:"logo_path"`
+	OriginCountry string `json:"origin_country"`
 }
 
-// MovieExternalIDsAppend type is a struct for external ids in append to response.
-type MovieExternalIDsAppend struct {
-	*MovieExternalIDs `json:"external_ids,omitempty"`
+type ProductionCountry struct {
+	Iso3166_1 string `json:"iso_3166_1"`
+	Name      string `json:"name"`
 }
 
-// MovieImagesAppend type is a struct for images in append to response.
-type MovieImagesAppend struct {
-	Images *MovieImages `json:"images,omitempty"`
+type SpokenLanguage struct {
+	Iso639_1 string `json:"iso_639_1"`
+	Name     string `json:"name"`
 }
 
-// MovieReleaseDatesAppend type is a struct for release dates in append to response.
-type MovieReleaseDatesAppend struct {
-	ReleaseDates *MovieReleaseDates `json:"release_dates,omitempty"`
+type Credits struct {
+	*MovieCredits
 }
 
-// MovieVideosAppend type is a struct for videos in append to response.
-type MovieVideosAppend struct {
-	Videos struct {
-		*MovieVideos
-	} `json:"videos,omitempty"`
+type Videos struct {
+	*MovieVideos
 }
 
-// MovieTranslationsAppend type is a struct for translations in append to response.
-type MovieTranslationsAppend struct {
-	Translations *MovieTranslations `json:"translations,omitempty"`
-}
-
-// MovieRecommendationsAppend type is a struct for
-// recommendations in append to response.
-type MovieRecommendationsAppend struct {
-	Recommendations *MovieRecommendations `json:"recommendations,omitempty"`
-}
-
-// MovieSimilarAppend type is a struct for similar movies in append to response.
-type MovieSimilarAppend struct {
-	Similar *MovieSimilar `json:"similar,omitempty"`
-}
-
-// MovieReviewsAppend type is a struct for reviews in append to response.
-type MovieReviewsAppend struct {
-	Reviews struct {
-		*MovieReviews
-	} `json:"reviews,omitempty"`
-}
-
-// MovieListsAppend type is a struct for lists in append to response.
-type MovieListsAppend struct {
-	Lists *MovieLists `json:"lists,omitempty"`
-}
-
-// MovieKeywordsAppend type is a struct for keywords in append to response.
-type MovieKeywordsAppend struct {
-	Keywords struct {
-		*MovieKeywords
-	} `json:"keywords,omitempty"`
-}
-
-// MovieWatchProvidersAppend type is a struct for
-// watch/providers in append to response.
-type MovieWatchProvidersAppend struct {
-	WatchProviders *MovieWatchProviders `json:"watch/providers,omitempty"`
+type Reviews struct {
+	*MovieReviews
 }
 
 // GetMovieDetails get the primary information about a movie.
